@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-4 flex-col md:flex-row">
+  <div class="flex md:gap-4 flex-col md:flex-row">
     <div class="md:hidden" id="tab-selector">
     <div class="flex border-b border-gray-700 bg-gray-900">
       <button @click="activeTab = 'sidebar'" :class="['flex-1 py-3 px-4 text-center text-sm font-medium transition-colors duration-200', activeTab === 'sidebar' ? 'border-b-2 border-indigo-500 text-indigo-400' : 'text-gray-400 hover:text-gray-300']">Sidebar</button>
@@ -10,7 +10,7 @@
 
     <left-sidebar :class="['md:block', { 'hidden': activeTab !== 'sidebar' }]" />
 
-    <div :class="['w-full md:w-1/2 mt-10 p-2 mx-auto', { 'hidden md:block': activeTab !== 'players' }]">
+    <div :class="['w-full md:w-1/2 md:mt-10 p-2 mx-auto', { 'hidden md:block': activeTab !== 'players' }]">
       <div class="flex flex-col md:flex-row items-center justify-between mb-4 space-x-2">
         <div class="inline-flex rounded-md shadow-sm bg-gray-800 p-1" role="group">
           <button
@@ -102,7 +102,7 @@
         <p class="mt-1 text-sm text-gray-500">Try adjusting your search query or role filters.</p>
       </div>
     </div>
-    <div id="player-details" :class="['w-full md:w-1/4 p-4 bg-gray-900 text-white p-4 px-8 sticky top-0 h-screen overflow-y-auto', { 'hidden md:block': activeTab !== 'details' }]">
+    <div id="player-details" :class="['w-full md:w-1/4 p-4 bg-gray-900 text-white px-8 sticky top-0 h-screen overflow-y-auto', { 'hidden md:block': activeTab !== 'details' }]">
       <active-player-details :player="activePlayer" v-if="activePlayer" />
     </div>
   </div>

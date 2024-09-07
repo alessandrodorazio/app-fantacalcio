@@ -1,6 +1,6 @@
 <template>
   <div class="w-full md:w-1/4 bg-gray-900 text-white p-4 px-8 md:sticky top-0 md:h-screen overflow-y-auto">
-    <div class="relative mt-8">
+    <div class="relative md:mt-8">
       <input
         v-model="searchQuery"
         @input="store.setSearchQuery"
