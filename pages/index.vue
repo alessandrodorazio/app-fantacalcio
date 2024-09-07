@@ -1,9 +1,9 @@
 <template>
     <div class="relative">
-        <div v-if="showLoader" class="absolute top-4 right-4 z-10">
+        <div v-if="showLoader" class="absolute top-0 right-0 md:top-4 md:right-4 z-20">
             <div class="w-5 h-5 border-t-2 border-blue-500 rounded-full animate-spin"></div>
         </div>
-        <div v-else class="absolute top-4 right-4 z-10">
+        <div v-else class="absolute top-0 right-0 md:top-4 md:right-4 z-20">
             <div class="w-5 h-5 text-green-500">✓</div>
         </div>
         <div v-if="players.length">

@@ -1,6 +1,6 @@
 <template>
   <div class="flex md:gap-4 flex-col md:flex-row">
-    <div class="md:hidden" id="tab-selector">
+    <div class="md:hidden sticky top-0 z-10" id="tab-selector">
     <div class="flex border-b border-gray-700 bg-gray-900">
       <button @click="activeTab = 'sidebar'" :class="['flex-1 py-3 px-4 text-center text-sm font-medium transition-colors duration-200', activeTab === 'sidebar' ? 'border-b-2 border-indigo-500 text-indigo-400' : 'text-gray-400 hover:text-gray-300']">Sidebar</button>
       <button @click="activeTab = 'players'" :class="['flex-1 py-3 px-4 text-center text-sm font-medium transition-colors duration-200', activeTab === 'players' ? 'border-b-2 border-indigo-500 text-indigo-400' : 'text-gray-400 hover:text-gray-300']">Players</button>
