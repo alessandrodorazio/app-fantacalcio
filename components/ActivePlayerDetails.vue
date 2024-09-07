@@ -1,5 +1,5 @@
 <template>
-  <div v-if="player" class="mt-8 relative h-full">
+  <div v-if="player" class="md:mt-8 relative h-full">
     <div class="flex items-center mb-4">
       <img :src="player.image_url" :alt="player.name" class="w-16 mr-4">
       <div>
