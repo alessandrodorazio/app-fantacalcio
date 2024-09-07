@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     };
   }
 
-  const db = new Database("database/players_database.sqlite");
+  const db = new Database("./database/players_database.sqlite");
 
   try {
     let updateQuery;
