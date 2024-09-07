@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     };
   }
 
-  const db = new Database("./database/players_database.sqlite");
+  const db = new Database("database/players_database.sqlite");
 
   try {
     const updateQuery = "UPDATE players SET buy_threshold = ? WHERE id = ?";
