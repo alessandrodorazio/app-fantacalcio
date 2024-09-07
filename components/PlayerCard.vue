@@ -5,7 +5,7 @@
          isBought ? 'bg-green-500 border-4 border-green-700' :
          isFavourite ? 'bg-yellow-500 border-4 border-yellow-700' :
          'bg-gray-800 border-2 border-gray-600',
-          activePlayerId === player.id ? 'ring-8 ring-blue-500' : ''
+          activePlayerId === player.id ? 'ring-2 md:ring-8 ring-blue-500' : ''
        ]"
        tabindex="0"
        @keydown.f="toggleFavourite"
@@ -14,7 +14,7 @@
        @click="setActivePlayer"
        @focus="setActivePlayer">
     <img :src="player.image_url" :alt="player.name" class="w-full h-auto rounded-t-lg">
-    <div class="absolute top-36 left-0 font-medium">
+    <div class="absolute top-20 md:top-36 left-0 font-medium">
         <div v-for="(trait, index) in playerTraits" :key="index" class="mb-4">
             <div :class="getTraitClass(trait.type)" class="rounded-r-md px-1 py-1 inline">
                 <span v-if="trait.type === 'trend'" class="text-sm">{{ trait.value }}%</span>
@@ -27,12 +27,12 @@
             </div>
         </div>
     </div>
-    <div class="absolute top-0 left-0 right-0 px-4 pt-1 pb-7 bg-gradient-to-b from-indigo-900 via-indigo-800 to-transparent">
+    <div class="absolute top-0 left-0 right-0 px-1 md:px-4 pt-1 pb-7 bg-gradient-to-b from-indigo-900 via-indigo-800 to-transparent">
       <div class="flex justify-between items-center">
-      <player-roles :roles="player.role_mantra.split('|')" />
-        <p class="text-sm font-bold text-center">{{ player.name }}<br> ({{player.team}})</p>
+      <player-roles :roles="player.role_mantra.split('|')" class="max-md:scale-75"/>
+        <p class="text-xs md:text-sm font-bold text-center">{{ player.name }}<br> ({{player.team}})</p>
         <div class="p-2 text-center">
-          <span class="text-3xl font-bold text-white">{{ player.fvm_mantra }}</span>
+          <span class="text-lg md:text-3xl font-bold text-white">{{ player.fvm_mantra }}</span>
         </div>
       </div>
     </div>

@@ -85,7 +85,7 @@
         </select>
       </div>
 
-      <div v-if="filteredPlayers.length" class="grid grid-cols-2 md:grid-cols-3 gap-8">
+      <div v-if="filteredPlayers.length" class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8">
         <PlayerCard v-for="player in filteredPlayers" :key="player.id" :playerId="player.id" />
       </div>
       <div v-else-if="players.length === 0" class="text-center">
