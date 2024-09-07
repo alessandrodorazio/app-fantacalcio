@@ -82,6 +82,7 @@
           <option value="titolarita">Titolarità</option>
           <option value="trend">Trend</option>
           <option value="my_valuation">Valutazione personale</option>
+          <option value="algo_ai">Algo AI</option>
         </select>
       </div>
 

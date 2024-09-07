@@ -75,6 +75,8 @@ export const usePlayersStore = defineStore("players", {
             return b.buy_threshold - a.buy_threshold;
           } else if (state.orderBy === "fantamedia") {
             return b.fm - a.fm;
+          } else if (state.orderBy === "algo_ai") {
+            return b.algoAi - a.algoAi;
           }
           return 0;
         });
@@ -117,8 +119,75 @@ export const usePlayersStore = defineStore("players", {
     },
   },
   actions: {
+    algoAi(player) {
+      let value = 0;
+      let top = ["INT", "JUV", "LAZ", "ATA"];
+      let midtop = ["NAP", "ROM", "MIL", "PAR", "VER", "BOL"];
+      let midbottom = ["TOR", "FIO", "UDI", "CAG", "EMP"];
+      let bottom = ["GEN", "LEC", "COM", "VEN", "MON"];
+
+      if (top.includes(player.team)) {
+        value += 10;
+      }
+
+      if (midtop.includes(player.team)) {
+        value += 5;
+      }
+
+      if (midbottom.includes(player.team)) {
+        value -= 5;
+      }
+
+      if (bottom.includes(player.team)) {
+        value -= 10;
+      }
+
+      value += player.fm * (player.partite_a_voto / 1.5);
+      if (player.titolarita > 0.7) {
+        value += 7;
+      } else if (player.titolarita > 0.5) {
+        value += 3;
+      }
+
+      const trend = Math.round(
+        ((player.current_price_mantra - player.initial_price_mantra) /
+          player.initial_price_mantra) *
+          100,
+      );
+
+      if (trend > 50) {
+        value += 10;
+      } else if (trend > 25) {
+        value += 5;
+      } else if (trend > 10) {
+        value += 3;
+      } else if (trend < -20) {
+        value -= 10;
+      } else if (trend < -10) {
+        value -= 5;
+      } else if (trend < -5) {
+        value -= 3;
+      } else if (trend < -2) {
+        value -= 2;
+      }
+
+      if (player.penalty) {
+        value += 3;
+      }
+
+      if (player.penalty_kick) {
+        value += 1;
+      }
+
+      value += player.role_mantra.length * 2;
+
+      return Math.floor(value);
+    },
     setPlayers(players) {
-      this.players = players;
+      this.players = players.map((player) => ({
+        ...player,
+        algoAi: this.algoAi(player),
+      }));
     },
     getPlayerById(playerId) {
       return this.players.find((item) => item.id === playerId);
@@ -193,7 +262,7 @@ export const usePlayersStore = defineStore("players", {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
-          this.players = await response.json();
+          this.setPlayers(await response.json());
           this.showLoader = false;
         } catch (error) {
           console.error("Failed to fetch players:", error);

@@ -67,7 +67,7 @@
           </div>
         </div>
       </div>
-      <div class="mt-4 flex justify-center">
+      <div class="mt-4 flex justify-center gap-2">
         <div class="flex justify-center items-center text-lg" :class="[
           isTaken ? 'bg-red-600 shadow-lg shadow-red-700/50' :
           isBought ? 'bg-green-600 shadow-lg shadow-green-700/50' :
@@ -83,6 +83,13 @@
             @click="setValuation(i)"
           />
         </div>
+        <div :class="[
+          isTaken ? 'bg-red-600 shadow-lg shadow-red-700/50' :
+          isBought ? 'bg-green-600 shadow-lg shadow-green-700/50' :
+          isFavourite ? 'bg-yellow-600 shadow-lg shadow-yellow-700/50' :
+          'bg-gray-700 shadow-gray-700/50 shadow-lg',
+          'rounded-lg p-3'
+        ]">{{player.algoAi}}</div>
         <!--
         <div class="flex justify-center items-center">
           <input
@@ -106,6 +113,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { usePlayersStore } from '../store/players'
 import PlayerRoles from './PlayerRoles.vue'
 import pkg from 'lodash';
+import { _5 } from '#tailwind-config/theme/width';
 const { debounce } = pkg;
 const store = usePlayersStore()
 const { activePlayerId, meanFmForRole } = storeToRefs(store)
@@ -122,6 +130,7 @@ const player = computed(() => store.getPlayerById(props.playerId))
 const isFavourite = computed(() => player.value.favourite)
 const isTaken = computed(() => player.value.taken)
 const isBought = computed(() => player.value.bought)
+
 
 const playerTraits = computed(() => {
   const traits = []
