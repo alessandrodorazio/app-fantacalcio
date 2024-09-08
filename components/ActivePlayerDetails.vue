@@ -1,5 +1,5 @@
 <template>
-  <div v-if="player" class="md:mt-8 relative h-full">
+  <div v-if="player" class="relative h-full max-h-screen overflow-y-scroll">
     <div class="flex items-center mb-4">
       <img :src="player.image_url" :alt="player.name" class="w-16 mr-4">
       <div>
@@ -104,7 +104,7 @@
       </div>
     </div>
 
-    <div class="flex justify-center gap-2 md:absolute md:bottom-8 md:right-1/2 md:translate-x-1/2 w-full">
+    <div class="flex justify-center gap-2 md:absolute md:bottom-2 md:right-1/2 md:translate-x-1/2 w-full">
       <button @click="toggleBought" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
       tabindex="-1"
 

@@ -10,8 +10,8 @@
 
     <left-sidebar :class="['md:block', { 'hidden': activeTab !== 'sidebar' }]" />
 
-    <div :class="['w-full md:w-1/2 md:mt-10 p-2 mx-auto', { 'hidden md:block': activeTab !== 'players' }]">
-      <div class="flex flex-col md:flex-row items-center justify-between mb-4 space-x-2">
+    <div :class="['w-full md:w-1/2 p-2 mx-auto max-h-screen overflow-y-scroll ', { 'hidden md:block': activeTab !== 'players' }]">
+      <div class="flex flex-col md:flex-row items-center justify-between mb-4 space-x-2 md:mt-10">
         <div class="inline-flex rounded-md shadow-sm bg-gray-800 p-1" role="group">
           <button
             @click="toggleBoughtFilter"
@@ -86,7 +86,7 @@
         </select>
       </div>
 
-      <div v-if="filteredPlayers.length" class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8">
+      <div v-if="filteredPlayers.length" class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 px-4 py-2">
         <PlayerCard v-for="player in filteredPlayers" :key="player.id" :playerId="player.id" />
       </div>
       <div v-else-if="players.length === 0" class="text-center">

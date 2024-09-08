@@ -14,6 +14,7 @@ export const usePlayersStore = defineStore("players", {
     budget: 500,
     fetchPlayersDataTimeout: null,
     showLoader: false,
+    selectedTeam: "",
     meanFmForRole: {
       pc: "6.52",
       a: "5.87",
@@ -28,6 +29,28 @@ export const usePlayersStore = defineStore("players", {
       dc: "5.43",
       por: "4.82",
     },
+    teams: [
+      "ATA",
+      "BOL",
+      "CAG",
+      "COM",
+      "EMP",
+      "FIO",
+      "GEN",
+      "INT",
+      "JUV",
+      "LAZ",
+      "LEC",
+      "MIL",
+      "MON",
+      "NAP",
+      "PAR",
+      "ROM",
+      "TOR",
+      "UDI",
+      "VEN",
+      "VER",
+    ],
   }),
   getters: {
     filteredPlayers: (state) => {
@@ -52,7 +75,10 @@ export const usePlayersStore = defineStore("players", {
               !player.taken) ||
             (state.showTaken && player.taken && !player.bought) ||
             (state.showAvailable && !player.bought && !player.taken);
-          return nameMatch && roleMatch && statusMatch;
+          const teamMatch = state.selectedTeam
+            ? player.team === state.selectedTeam
+            : true;
+          return nameMatch && roleMatch && statusMatch && teamMatch;
         })
         .sort((a, b) => {
           if (state.orderBy === "fvm_mantra") {
@@ -209,6 +235,10 @@ export const usePlayersStore = defineStore("players", {
     },
     toggleRole(role) {
       this.selectedRoles = [role];
+    },
+    setSelectedTeam(team) {
+      console.log(team);
+      this.selectedTeam = team;
     },
     toggleBoughtFilter() {
       this.showBought = !this.showBought;

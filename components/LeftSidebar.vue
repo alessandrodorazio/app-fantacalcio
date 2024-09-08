@@ -33,6 +33,16 @@
         {{ formatRole(role.code) }}
       </button>
     </div>
+    <div class="mt-2">
+      <select
+        v-model="selectedTeam"
+        @change="store.setSelectedTeam($event.target.value)"
+        class="w-full p-2 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gray-800 text-white"
+      >
+        <option value="">Select Team</option>
+        <option v-for="team in teams" :key="team" :value="team">{{ team }}</option>
+      </select>
+    </div>
     <div class="overflow-y-scroll max-h-[700px] mt-2">
       <template v-for="(role, index) in roles" :key="role.code">
         <div v-if="getPlayersByRole(role.code).length > 0" class="bg-gray-800 mb-1 rounded-md">
@@ -61,7 +71,7 @@
                     {{ formatRole(otherRole) }}
                   </span>
                 </div>
-                <span class="text-base flex-grow player-name-bought-list hover:underline hover:cursor-pointer" @click="setActivePlayerId(player.id)">{{player.name}}</span>
+                <span class="text-base flex-grow player-name-bought-list hover:underline hover:cursor-pointer" @click="setActivePlayerId(player.id)">{{player.name}} ({{player.team}})</span>
                 <div>{{player.amount_paid}}</div>
               </div>
             </div>
@@ -69,17 +79,17 @@
         </div>
       </template>
     </div>
-    <div class="fixed bottom-0 left-0 p-2 bg-gray-800 rounded-tr-md text-xs text-gray-400">
+    <div class="absolute bottom-0 left-0 p-2 bg-gray-800 rounded-tr-md text-xs text-gray-400">
       <span class="inline-block px-2 py-1 bg-gray-700 rounded mr-1">[b]ought</span>
       <span class="inline-block px-2 py-1 bg-gray-700 rounded mr-1">[f]avourite</span>
       <span class="inline-block px-2 py-1 bg-gray-700 rounded mr-1">[t]aken</span>
       <span class="inline-block px-2 py-1 bg-gray-700 rounded">[p]rice</span>
     </div>
 
-    <div class="fixed bottom-0 left-72 ml-4 z-10 p-2 bg-gray-800 rounded-tl-md text-3xl text-gray-400">
+    <div class="absolute bottom-0 right-0 ml-4 z-30 p-2 bg-gray-800 rounded-tl-md text-3xl text-gray-400">
       <span class=" px-2 py-1 ">{{ remainingCredits }}<span class="text-lg">/{{ budget }}</span></span>
     </div>
-  </div>
+    </div>
 </template>
 
 <script setup>
@@ -91,7 +101,7 @@ import pkg from 'lodash';
 const { debounce } = pkg;
 
 const store = usePlayersStore()
-const { searchQuery, selectedRoles, boughtPlayers, remainingCredits, budget, activePlayerId } = storeToRefs(store)
+const { searchQuery, selectedRoles, boughtPlayers, remainingCredits, budget, activePlayerId, selectedTeam, teams } = storeToRefs(store)
 
 const searchInput = ref(null)
 const collapsedRoles = ref(['pc', 'a', 't', 'w', 'c', 'm', 'e', 'ds', 'dd', 'b', 'dc', 'por'])
@@ -110,6 +120,7 @@ const roles = [
   { code: 'dc', name: 'Difensore centrale' },
   { code: 'por', name: 'Portiere' },
 ]
+
 
 const focusSearch = () => {
   searchInput.value.focus()
